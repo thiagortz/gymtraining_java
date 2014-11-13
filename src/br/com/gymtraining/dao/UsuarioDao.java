@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import br.com.gymtraining.beans.Usuario;
@@ -85,6 +83,7 @@ public class UsuarioDao {
 		//Se o usuario passar id == null, deleta tudo
 		if(id != null) {
 			sql += " where id=?";
+			stmt = conexao.prepareStatement(sql);
 			// preenche os valores
 			stmt.setLong(1, id);
 		}
@@ -98,16 +97,25 @@ public class UsuarioDao {
 
 	}
 
-	public List<Usuario> select( String name) throws SQLException, ParseException {
+	public List<Usuario> getAll() throws SQLException, ParseException {
+		return getByName(null);
+	}
+	
+	public List<Usuario> getByName( String name) throws SQLException, ParseException {
 
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		
 		// cria um preparedStatement
-		String sql = "select * from usuarios where nome=?";
+		String sql = "select * from usuarios";
 
 		PreparedStatement stmt = conexao.prepareStatement(sql);
-		// preenche os valores
-		stmt.setString(1, name);
+		//Se o usuario passar name == null, deleta tudo
+		if(name != null) {
+			sql += " where nome=?";
+			stmt = conexao.prepareStatement(sql);
+			// preenche os valores
+			stmt.setString(1, name);
+		}
 
 		// executa
 		ResultSet rs = stmt.executeQuery();

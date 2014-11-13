@@ -1,0 +1,33 @@
+<html>
+
+	<head>
+		<title>Gym Training</title>
+		<link href="assets/style/usuarios.css" rel="stylesheet" type="text/css">
+		<script src="assets/js/usuarios.js"></script>
+		<meta charset="UTF-8">
+	</head>
+	
+	<body>
+		<object name="header" type="text/html" data="header.jsp"></object>
+		
+		<form action="cadastrarUsuario" class="novoUsuario" method="post">
+			<label>Nome:</label><input type="text" maxlength="80" name="nome">
+			<label>Email:</label><input type="email" maxlength="50" name="email">
+			<label>Data de Nascimento:</label><input type="date" name="data_nascimento">
+			<input type="submit" value="Enviar">
+		</form>
+		
+		<table id="lista_usuarios">
+			<tr>
+				<td>Nome</td>
+				<td>Email</td>
+				<td>Data de Nascimento</td>
+				<td>Data de Criação</td>
+				<td>Última Modificação</td>
+				<td> </td>
+			</tr>
+		</table>
+		
+	</body>
+	
+</html>

@@ -48,10 +48,10 @@ public class UsuarioDaoTest {
 			InstantiationException, IllegalAccessException,
 			ClassNotFoundException, ParseException {
 		
-		List<Usuario> usuariosAntesDoInsert = dao.select(nomeUsuario);
+		List<Usuario> usuariosAntesDoInsert = dao.getByName(nomeUsuario);
 		usuario.setEmail("newUser@gmail.com");
 		dao.insert(usuario);
-		List<Usuario> usuariosDepoisDoInsert = dao.select(nomeUsuario);
+		List<Usuario> usuariosDepoisDoInsert = dao.getByName(nomeUsuario);
 		
 		assertNotNull(usuariosDepoisDoInsert);
 		assertEquals(usuariosAntesDoInsert.size() + 1, usuariosDepoisDoInsert.size());
@@ -62,7 +62,7 @@ public class UsuarioDaoTest {
 	InstantiationException, IllegalAccessException,
 	ClassNotFoundException, ParseException {
 		
-		List<Usuario> usuarios = dao.select(nomeUsuario);
+		List<Usuario> usuarios = dao.getByName(nomeUsuario);
 		for (Usuario usuario : usuarios) {
 			System.out.println(usuario);
 		}
@@ -76,13 +76,13 @@ public class UsuarioDaoTest {
 		InstantiationException, IllegalAccessException,
 		ClassNotFoundException, ParseException {
 		
-		List<Usuario> usuarios = dao.select(nomeUsuario);
+		List<Usuario> usuarios = dao.getByName(nomeUsuario);
 		
 		assertNotNull(usuarios);
 		assertEquals(usuarios.size(), 1);
 		
 		dao.delete(null);
-		usuarios = dao.select(nomeUsuario);
+		usuarios = dao.getByName(nomeUsuario);
 		
 		assertNotNull(usuarios);
 		assertEquals(usuarios.size(), 0);

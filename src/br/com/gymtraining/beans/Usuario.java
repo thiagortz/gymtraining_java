@@ -1,5 +1,6 @@
 package br.com.gymtraining.beans;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Usuario {
@@ -7,12 +8,13 @@ public class Usuario {
 	private Long id;
 	
 	private String nome;
-	
 	private String email;
 	private Date dataNascimento;
 	private Date dataCriacao;
 	private Date dataModificacao;
 
+	private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+	
 	public Long getId() {
 		return id;
 	}
@@ -52,9 +54,21 @@ public class Usuario {
 	
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email
-				+ ", dataNascimento=" + dataNascimento + ", dataCriacao="
-				+ dataCriacao + ", dataModificacao=" + dataModificacao + "]";
+		StringBuilder sb = new StringBuilder("{");
+		sb.append(getPropertyInJsonFormat("id", id)).append(",");
+		sb.append(getPropertyInJsonFormat("nome", nome)).append(",");
+		sb.append(getPropertyInJsonFormat("email", email)).append(",");
+		sb.append(getPropertyInJsonFormat("dataNascimento", sf.format(dataNascimento))).append(",");
+		sb.append(getPropertyInJsonFormat("dataCriacao", sf.format(dataCriacao))).append(",");
+		sb.append(getPropertyInJsonFormat("dataModificacao", sf.format(dataModificacao))).append("}");
+		
+		return sb.toString();
+	}
+	
+	private String getPropertyInJsonFormat(String property, Object value){
+		String aspasDuplas = "\"";
+		return aspasDuplas + property + aspasDuplas + ":" + aspasDuplas + value + aspasDuplas;
+		
 	}
 	
 	
